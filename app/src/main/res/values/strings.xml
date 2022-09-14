@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Книга рецептов</string>
+    <string name="title_home">Домой</string>
+    <string name="title_dashboard">Рецепты</string>
+    <string name="title_notifications">Избранное</string>
+    <string name="menu_scrolling">Меню</string>
+    <string name="action_settings">Menu</string>
+    <string name="remove">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="search">Search</string>
+    <string name="dish1">ПИЦЦА</string>
+    <string name="category">Средиземноморская кухня</string>
+    <string name="author">Автор: Иван Петров</string>
+    <string name="filter">filter</string>
+    <string name="europa">Европейская кухня</string>
+    <string name="mediteranen">Средиземноморская кухня</string>
+    <string name="russia">Русская кухня</string>
+    <string name="west">Восточная кухня</string>
+    <string name="american">Американская кухня</string>
+    <string name="panazia">Паназиатская кухня</string>
+    <string name="azia">Азиатская кухня</string>
+    <string name="save_filter">Сохранить</string>
+    <string name="name_dish">Введите название блюда</string>
+    <string name="name_author">Напишите автора</string>
+    <string name="name_category">Напишите категорию</string>
+    <string name="name_recipe">Напишите рецепт</string>
+    <string-array name="type">
+        <item>Выберите категорию</item>
+        <item>Европейская кухня</item>
+        <item>Средиземноморская кухня</item>
+        <item>Русская кухня</item>
+        <item>Восточная кухня</item>
+        <item>Американская кухня</item>
+        <item>Паназиатская кухня</item>
+        <item>Азиатская кухня</item>
+    </string-array>
+
+</resources>

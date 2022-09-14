@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.FilterFragment"
+    android:gravity="clip_vertical"
+    android:orientation="vertical">
+
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/europa"
+        tools:ignore="MissingConstraints"
+        android:checked="true"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mediteranen"
+        tools:ignore="MissingConstraints"
+        android:checked="true"
+
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/russia"
+        tools:ignore="MissingConstraints"
+        android:checked="true"
+
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/west"
+        tools:ignore="MissingConstraints"
+        android:checked="true"
+
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/american"
+        tools:ignore="MissingConstraints"
+        android:checked="true"
+
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/panazia"
+        tools:ignore="MissingConstraints"
+        android:checked="true"
+
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/azia"
+        tools:ignore="MissingConstraints"
+        android:checked="true"
+
+        />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_filter"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/cardview_dark_background"
+        />
+
+</LinearLayout>
+

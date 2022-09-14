@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/allRecipesFragment">
+
+
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="ru.netology.book.ui.FilterFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_filter"
+        android:layout_gravity="center"
+        >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_allRecipesFragment"
+            app:destination="@id/allRecipesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="ru.netology.book.ui.FavoritesFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_favorite"
+        android:layout_gravity="center"
+        >
+        <action
+            android:id="@+id/action_navigation_notifications_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_navigation_notifications_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allRecipesFragment"
+        android:name="ru.netology.book.ui.AllRecipesFragment"
+        android:label="Книга рецептов"
+        tools:layout="@layout/all_recipe" >
+        <action
+            android:id="@+id/action_allRecipesFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_allRecipesFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+        <action
+            android:id="@+id/action_allRecipesFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="ru.netology.book.ui.AddFragment"
+        android:label="Добавить рецепт"
+        tools:layout="@layout/add_recipe" >
+        <action
+            android:id="@+id/action_addFragment_to_allRecipesFragment"
+            app:destination="@id/allRecipesFragment" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="recipe"
+            app:nullable="true"
+            app:argType="ru.netology.book.dto.Recipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="ru.netology.book.ui.RecipeDetailFragment"
+        android:label="Рецепт блюда" >
+        <argument
+            android:name="recipe"
+            app:argType="ru.netology.book.dto.Recipe" />
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_allRecipesFragment"
+            app:destination="@id/allRecipesFragment" />
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+
+</navigation>
