@@ -75,7 +75,7 @@ internal class RecipeAdapter(
                     )
                         .transition(DrawableTransitionOptions.withCrossFade()).into(imageView2)
                 } else {
-                    imageView2.setImageResource(R.drawable.ic_launcher_foreground)
+                    imageView2.setImageResource(R.drawable.furshet)
                 }
                 binding.menu.setOnClickListener {
                     showPopupMenu(it, recipe)

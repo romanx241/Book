@@ -14,7 +14,7 @@ import ru.netology.book.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: RecipeAdapter
+//    private lateinit var adapter: RecipeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +33,6 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
-//        val menuItem = menu?.findItem(R.id.search_bar)
-//        val searchView = menuItem?.actionView as SearchView
-//        searchView.animate()
         return super.onCreateOptionsMenu(menu)
     }
 }

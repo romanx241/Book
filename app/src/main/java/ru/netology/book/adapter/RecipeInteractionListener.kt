@@ -10,5 +10,4 @@ interface RecipeInteractionListener {
      fun onRecipeDetail(recipe: Recipe)
      fun onRecipeLike(recipe: Recipe, isLiked: Boolean)
      fun onRecipeFilter(list: List<Category>)
-//     fun onRecipeMove(recipe: Recipe)
 }

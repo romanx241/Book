@@ -9,7 +9,7 @@ import androidx.room.Query
 @Dao
 interface RecipeDao {
 
-    @Query("SELECT * FROM recipe INNER JOIN category  ON category.category_id = category ORDER BY id DESC")
+    @Query("SELECT * FROM recipe INNER JOIN category  ON category.category_id = category")
     fun getAll(): LiveData<List<RecipeAndCategory>>
 
     @Query("SELECT * FROM recipe WHERE liked = 1 ORDER BY id DESC")
@@ -22,10 +22,6 @@ interface RecipeDao {
 
     @Query("UPDATE recipe SET name = :name, author = :author, content = :content, category = :category WHERE id = :id")
     fun updateContentById(id: Long, name: String, author: String, content: String, category: Int)
-
-//
-//    fun save(recipe: RecipeEntity) =
-//        if (recipe.id != RecipeRepository.NEW_RECIPE_ID) insert(recipe) else updateContentById(recipe)
 
 
     @Query("DELETE FROM recipe WHERE id = :id")

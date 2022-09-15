@@ -20,52 +20,54 @@ import ru.netology.book.dto.Recipe
 import ru.netology.book.viewmodel.RecipeViewModel
 
 
-class AllRecipesFragment : Fragment() {
+class AllRecipesFragment : Fragment(), RecipeInteractionListener {
 
     private val viewModel: RecipeViewModel by activityViewModels()
     private lateinit var binding: AllRecipeBinding
-    private var adapter: RecipeAdapter? = null
+    private var adapter: RecipeAdapter = RecipeAdapter(this, mutableListOf())
 
     private val itemTouchHelper by lazy {
-        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(UP or DOWN or START or END, 0) {
+        val simpleItemTouchCallback =
+            object : ItemTouchHelper.SimpleCallback(UP or DOWN or START or END, 0) {
 
-            override fun onMove(recyclerView: RecyclerView,
-                                viewHolder: RecyclerView.ViewHolder,
-                                target: RecyclerView.ViewHolder): Boolean {
-                val adapter = recyclerView.adapter as RecipeAdapter
-                val from = viewHolder.bindingAdapterPosition
-                val to = target.bindingAdapterPosition
-                adapter.moveItem(from, to)
-                adapter.notifyItemMoved(from, to)
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val adapter = recyclerView.adapter as RecipeAdapter
+                    val from = viewHolder.bindingAdapterPosition
+                    val to = target.bindingAdapterPosition
+                    adapter.moveItem(from, to)
+                    adapter.notifyItemMoved(from, to)
 
-                return true
-            }
+                    return true
+                }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            }
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                }
 
-            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-                super.onSelectedChanged(viewHolder, actionState)
+                override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+                    super.onSelectedChanged(viewHolder, actionState)
 
-                if (actionState == ACTION_STATE_DRAG) {
-                    viewHolder?.itemView?.alpha = 0.5f
+                    if (actionState == ACTION_STATE_DRAG) {
+                        viewHolder?.itemView?.alpha = 0.5f
+                    }
+                }
+
+                override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+                    super.clearView(recyclerView, viewHolder)
+
+                    viewHolder.itemView.alpha = 1.0f
                 }
             }
-
-            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-                super.clearView(recyclerView, viewHolder)
-
-                viewHolder.itemView.alpha = 1.0f
-            }
-        }
-
         ItemTouchHelper(simpleItemTouchCallback)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.postRecyclerView.adapter = adapter
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(
                 AllRecipesFragmentDirections.actionAllRecipesFragmentToAddFragment(null)
@@ -74,42 +76,12 @@ class AllRecipesFragment : Fragment() {
         viewModel.addInitRecipes()
         viewModel.data.observe(viewLifecycleOwner) {
             viewModel.addFullRecipe(it)
-
             itemTouchHelper.attachToRecyclerView(binding.postRecyclerView)
-
-            adapter = RecipeAdapter(object : RecipeInteractionListener {
-            override fun onRemoveClicked(recipe: Recipe) {
-                viewModel.onRemoveClicked(recipe)
-            }
-            override fun onEditClicked(recipe: Recipe) {
-                findNavController().navigate(
-                    AllRecipesFragmentDirections.actionAllRecipesFragmentToAddFragment(
-                        recipe,
-                        true
-                    )
-                )
-            }
-            override fun onRecipeDetail(recipe: Recipe) {
-                findNavController().navigate(
-                    AllRecipesFragmentDirections.actionAllRecipesFragmentToRecipeDetailFragment(
-                        recipe
-                    )
-                )
-            }
-            override fun onRecipeLike(recipe: Recipe, isLiked: Boolean) {
-                viewModel.onRecipeLike(recipe, isLiked)
-            }
-            override fun onRecipeFilter(list: List<Category>) {}
-
-//                override fun onRecipeMove(recipe: Recipe) {}
-            }, it
-            )
-            binding.postRecyclerView.adapter = adapter
             if(it.isNullOrEmpty()){
                 binding.placeholder.visibility = View.VISIBLE
             } else {
                 binding.placeholder.visibility = View.GONE
-                adapter?.submitList(it)
+                adapter.submitList(it)
             }
             binding.floatingActionButton.visibility = View.VISIBLE
         }
@@ -148,6 +120,7 @@ class AllRecipesFragment : Fragment() {
             }, viewLifecycleOwner
         )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -156,6 +129,34 @@ class AllRecipesFragment : Fragment() {
         binding = AllRecipeBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
+    override fun onRemoveClicked(recipe: Recipe) {
+        viewModel.onRemoveClicked(recipe)
+    }
+
+    override fun onEditClicked(recipe: Recipe) {
+        findNavController().navigate(
+            AllRecipesFragmentDirections.actionAllRecipesFragmentToAddFragment(
+                recipe,
+                true
+            )
+        )
+    }
+
+    override fun onRecipeDetail(recipe: Recipe) {
+        findNavController().navigate(
+            AllRecipesFragmentDirections.actionAllRecipesFragmentToRecipeDetailFragment(
+                recipe
+            )
+        )
+    }
+
+    override fun onRecipeLike(recipe: Recipe, isLiked: Boolean) {
+        viewModel.onRecipeLike(recipe, isLiked)
+    }
+
+    override fun onRecipeFilter(list: List<Category>) {}
 
     companion object {
 

@@ -33,16 +33,17 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
         currentRecipe.value = recipe
         navigateRecipeContentScreenEvent.value = recipe.content.toString()
     }
-    override fun onRecipeDetail(recipe: Recipe) {
-        // NO OP
-    }
+
+    override fun onRecipeDetail(recipe: Recipe) {}
     override fun onRecipeLike(recipe: Recipe, isLiked: Boolean) {
         repository.like(recipe, isLiked)
     }
+
     override fun onRecipeFilter(list: List<Category>) {
         repository.saveCategory(list)
         repository.getAll()
     }
+
     fun onSaveButtonClicked(
         name: String,
         author: String,
@@ -75,7 +76,8 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
         repository.saveAll(initRecipes)
     }
 
-    fun addFullRecipe(recipe: List<Recipe>){
+    fun addFullRecipe(recipe: List<Recipe>) {
+        allRecipe.clear()
         allRecipe.addAll(recipe)
     }
 

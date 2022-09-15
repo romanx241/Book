@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -32,50 +33,47 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).supportActionBar?.title = "Избранные рецепты"
+
         viewModel.dataLike.observe(viewLifecycleOwner) {
-            val adapter = RecipeAdapter(object : RecipeInteractionListener {
-                override fun onRemoveClicked(recipe: Recipe) {
-                    viewModel.onRemoveClicked(recipe)
-                }
+            val adapter = RecipeAdapter(
+                object : RecipeInteractionListener {
 
-                override fun onEditClicked(recipe: Recipe) {
-                    findNavController().navigate(
-                        FavoritesFragmentDirections.actionNavigationNotificationsToAddFragment(
-                            recipe,
-                            true
+                    override fun onRemoveClicked(recipe: Recipe) {
+                        viewModel.onRemoveClicked(recipe)
+                    }
+
+                    override fun onEditClicked(recipe: Recipe) {
+                        findNavController().navigate(
+                            FavoritesFragmentDirections.actionNavigationNotificationsToAddFragment(
+                                recipe,
+                                true
+                            )
                         )
-                    )
-                }
+                    }
 
-                override fun onRecipeDetail(recipe: Recipe) {
-                    findNavController().navigate(
-                        FavoritesFragmentDirections.actionNavigationNotificationsToRecipeDetailFragment(
-                            recipe
+                    override fun onRecipeDetail(recipe: Recipe) {
+                        findNavController().navigate(
+                            FavoritesFragmentDirections.actionNavigationNotificationsToRecipeDetailFragment(
+                                recipe
+                            )
                         )
-                    )
-                }
+                    }
 
-                override fun onRecipeLike(recipe: Recipe, isLiked: Boolean) {
-                    viewModel.onRecipeLike(recipe, isLiked)
-                }
+                    override fun onRecipeLike(recipe: Recipe, isLiked: Boolean) {
+                        viewModel.onRecipeLike(recipe, isLiked)
+                    }
 
-                override fun onRecipeFilter(list: List<Category>) {
-                    // NO OP
-                }
-
-//                override fun onRecipeMove(recipe: Recipe) {
-//                    // NO OP
-//                }
-            }, it
+                    override fun onRecipeFilter(list: List<Category>) {}
+                }, it
             )
             binding.postRecyclerView.adapter = adapter
-            if(it.isNullOrEmpty()){
+            if (it.isNullOrEmpty()) {
                 binding.placeholder.visibility = View.VISIBLE
             } else {
                 binding.placeholder.visibility = View.GONE
                 adapter.submitList(it)
             }
-
         }
     }
 

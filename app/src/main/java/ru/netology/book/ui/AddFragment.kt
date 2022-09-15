@@ -5,12 +5,16 @@ import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import kotlinx.android.synthetic.main.list_item_recipe.*
 import ru.netology.book.R
 import ru.netology.book.databinding.AddRecipeBinding
 import ru.netology.book.viewmodel.RecipeViewModel
@@ -51,6 +55,19 @@ class AddFragment : Fragment() {
 
             }
         }
+        if (args.recipe?.picture != "no") {
+            Glide.with(this).load(args.recipe?.picture).placeholder(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_baseline_emoji_food_beverage_24,
+                    null
+                )
+            )
+                .transition(DrawableTransitionOptions.withCrossFade()).into(binding.imageView)
+        } else {
+            imageView2.setImageResource(R.drawable.furshet)
+        }
+
         binding.buttonSave.setOnClickListener {
             if (binding.name.text.isNullOrBlank() || binding.author.text.isNullOrBlank() || binding.content.text.isNullOrBlank()) {
                 Toast.makeText(requireContext(), "Введите все данные", Toast.LENGTH_LONG).show()
