@@ -2,7 +2,7 @@ package ru.netology.book.ui
 
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -76,6 +76,7 @@ class AllRecipesFragment : Fragment(), RecipeInteractionListener {
         viewModel.addInitRecipes()
         viewModel.data.observe(viewLifecycleOwner) {
             viewModel.addFullRecipe(it)
+            adapter.addFullRecipe(it)
             itemTouchHelper.attachToRecyclerView(binding.postRecyclerView)
             if(it.isNullOrEmpty()){
                 binding.placeholder.visibility = View.VISIBLE
@@ -100,9 +101,9 @@ class AllRecipesFragment : Fragment(), RecipeInteractionListener {
                         }
                         override fun onQueryTextChange(p0: String?): Boolean {
                             if (p0.isNullOrBlank()) {
-                                adapter?.submitList(viewModel.allRecipe)
+                                adapter.submitList(viewModel.allRecipe)
                             } else {
-                                adapter?.filter?.filter(p0)
+                                adapter.filter.filter(p0)
                             }
                             return false
                         }

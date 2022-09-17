@@ -20,10 +20,9 @@ import ru.netology.book.databinding.ListItemRecipeBinding
 import ru.netology.book.dto.Recipe
 import ru.netology.book.util.toCategoryString
 import java.util.*
-import kotlin.collections.ArrayList
 
 internal class RecipeAdapter(
-    private val interactionListener: RecipeInteractionListener, private val items: List<Recipe>
+    private val interactionListener: RecipeInteractionListener, private var items: List<Recipe>
 ) : ListAdapter<Recipe, RecipeAdapter.ViewHolder>(DiffCallback), Filterable
 {
 
@@ -127,6 +126,7 @@ internal class RecipeAdapter(
                 }
                 return filterResults
             }
+
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 results?.also {
@@ -135,10 +135,16 @@ internal class RecipeAdapter(
             }
         }
     }
+
+    fun addFullRecipe(items: List<Recipe>) {
+        this.items = items
+    }
+
     companion object {
         private const val ID_EDIT = 0
         private const val ID_REMOVE = 1
     }
+
     private object DiffCallback : DiffUtil.ItemCallback<Recipe>() {
         override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe) =
             oldItem.id == newItem.id

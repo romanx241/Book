@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import kotlinx.android.synthetic.main.list_item_recipe.*
 import ru.netology.book.R
 import ru.netology.book.databinding.AddRecipeBinding
 import ru.netology.book.viewmodel.RecipeViewModel
@@ -65,7 +64,7 @@ class AddFragment : Fragment() {
             )
                 .transition(DrawableTransitionOptions.withCrossFade()).into(binding.imageView)
         } else {
-            imageView2.setImageResource(R.drawable.furshet)
+            binding.imageView.setImageResource(R.drawable.furshet)
         }
 
         binding.buttonSave.setOnClickListener {
